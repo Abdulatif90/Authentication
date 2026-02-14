@@ -12,7 +12,7 @@ import {
     FormMessage
 } from "@/components/ui/form";
 
-import { LoginSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas";
 import { CardWrapper } from "./card-wrapper";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -22,20 +22,22 @@ import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
 
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     
-    const form = useForm<z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<z.infer<typeof RegisterSchema>>({
+        resolver: zodResolver(RegisterSchema),
         defaultValues: {
+            name: "",
             email: "",
-            password: ""
+            password: "",
+            confirmPassword: ""
         }
     });
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("");
 
@@ -50,9 +52,9 @@ export const LoginForm = () => {
 
     return (
         <CardWrapper 
-            headerLabel="Welcome Back"
-            backButtonLabel="Don't have an account?"
-            backButtonHref="/auth/register"
+            headerLabel="Create an Account"
+            backButtonLabel="Already have an account?"
+            backButtonHref="/auth/login"
             showSocial
         >
             <Form {...form}>
@@ -61,6 +63,25 @@ export const LoginForm = () => {
                     className="space-y-6"
                 >
                     <div className="space-y-4">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                        Name
+                                    </FormLabel>                                    
+                                        <FormControl>
+                                            <Input {...field} 
+                                            disabled={isPending}
+                                            placeholder="John Doe"
+                                            type="text"
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                              />
                         <FormField
                             control={form.control}
                             name="email"
@@ -99,6 +120,25 @@ export const LoginForm = () => {
                                     </FormItem>
                                 )}
                             />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                        Confirm Password
+                                    </FormLabel>                                    
+                                        <FormControl>
+                                            <Input {...field}
+                                            disabled={isPending} 
+                                            placeholder="Confirm your password"
+                                            type="password"
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
                     </div>
                     <FormError message={error}/>
                     <FormSuccess message={success}/>
@@ -107,7 +147,7 @@ export const LoginForm = () => {
                     type="submit"
                     className="w-full"
                     >
-                        Login
+                        create account
                     </Button>
                 </form>
             </Form>

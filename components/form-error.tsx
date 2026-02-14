@@ -1,5 +1,5 @@
 import {} from "@radix-ui/react-slot"
-import { BsExclamation, BsExclamationTriangle, BsExclamationTriangleFill } from "react-icons/bs";
+import { BsExclamationTriangle } from "react-icons/bs";
 
 interface FormErrorProps {
     message?: string;
