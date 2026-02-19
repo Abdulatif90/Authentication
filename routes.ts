@@ -19,7 +19,8 @@ preventing them from accessing the login or registration pages again.
 */
 export const AuthRoutes = [
     "/auth/login",
-    "/auth/register"
+    "/auth/register",
+    "/auth/error"
 ];
 
 /*
