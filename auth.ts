@@ -28,6 +28,20 @@ import { UserRole } from "@prisma/client";
           }
       },
       callbacks:{
+        async signIn({ user, account }) {
+          // allow OAuth without email verification
+            if (account?.provider !== "credentials") 
+            return true;
+            if (!user.id) return false;
+            const existingUser = await getUserById(user.id);
+            //Prevent sign in without email verification for credentials provider
+            if (!existingUser?.emailVerified) {
+               return false;
+            }
+            //TODO : add 2FA check here
+          return true;
+        },
+
         async session({token, session}){
           if(token.sub && session.user){
             session.user.id = token.sub

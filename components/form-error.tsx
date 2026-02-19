@@ -12,8 +12,7 @@ export const FormError = ({
         return null;
     }   
     return (
-        <div className="bg-destructive/15 p-3 rounded-md flex 
-        items-center gap-x-2 text-destructive text-sm">
+        <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-destructive text-sm">
             <BsExclamationTriangle className="h-4 w-4"/>
             <p>{message}</p>
         </div>
