@@ -5,10 +5,6 @@ import { db } from "@/lib/db";
 import { getUserById } from "./data/user";
 import { UserRole } from "@prisma/client";
 
-
-
-
-
   export const { 
     auth, 
     handlers, 

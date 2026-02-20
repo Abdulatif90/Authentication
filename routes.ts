@@ -10,7 +10,7 @@ export const PublicRoutes =
 [
     "/", 
     "/auth/new-verification", 
-    "/auth/reset"];
+];
 
 
 /*
@@ -24,7 +24,9 @@ preventing them from accessing the login or registration pages again.
 export const AuthRoutes = [
     "/auth/login",
     "/auth/register",
-    "/auth/error"
+    "/auth/error",
+    "/auth/reset",
+    "/auth/new-password",
 ];
 
 /*
