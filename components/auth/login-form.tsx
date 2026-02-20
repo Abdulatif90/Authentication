@@ -30,6 +30,7 @@ export const LoginForm = () => {
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
     ? "Email already associated with another account"
     : "";
+    const [showTwoFactor, setShowTwoFactor] = useState(false);
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
@@ -40,7 +41,8 @@ export const LoginForm = () => {
         resolver: zodResolver(LoginSchema),
         defaultValues: {
             email: "",
-            password: ""
+            password: "",
+            code: ""
         }
     });
 
@@ -51,9 +53,21 @@ export const LoginForm = () => {
         startTransition(() => {
             login(values)
             .then((data) => {
-                setError(data.error || "");
-                // setSuccess(data.success || "");
-            });
+                console.log("Login response:", data);
+                if (data?.error) {
+                    form.reset();
+                    setError(data.error);
+                } 
+                if (data?.success) {
+                    form.reset();
+                    setSuccess(data.success);
+                }
+                if (data?.twoFactor){
+                    setShowTwoFactor(true);
+                }
+            })
+            .catch(() => 
+                setError("Failed to login. Please try again."));
         });
     };
 
@@ -70,6 +84,33 @@ export const LoginForm = () => {
                     className="space-y-6"
                 >
                     <div className="space-y-4">
+                        {showTwoFactor && (
+                            <>
+                            <FormField
+                            control={form.control}
+                            name="code"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel htmlFor={emailId}>
+                                        Two Factor Code
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            id={emailId}
+                                            disabled={isPending}
+                                            placeholder="123456"
+                                            type="text"
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                        </>
+                        )}
+                        {!showTwoFactor && (
+                        <>
                         <FormField
                             control={form.control}
                             name="email"
@@ -122,6 +163,8 @@ export const LoginForm = () => {
                                 </FormItem>
                             )}
                         />
+                      </>
+                     )}                              
                     </div>
                     <FormError message={error || urlError}/>
                     <FormSuccess message={success}/>
@@ -130,7 +173,7 @@ export const LoginForm = () => {
                         type="submit"
                         className="w-full"
                     >
-                        Login
+                        {showTwoFactor ? "Confirm" : "Login"}
                     </Button>
                 </form>
             </Form>

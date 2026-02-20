@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { getUserById } from "./data/user";
 import { UserRole } from "@prisma/client";
+import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 
   export const { 
     auth, 
@@ -32,11 +33,31 @@ import { UserRole } from "@prisma/client";
             if (!user.id) return false;
             const existingUser = await getUserById(user.id);
             //Prevent sign in without email verification for credentials provider
-            if (!existingUser?.emailVerified) {
+            if (!existingUser?.emailVerified) 
                return false;
+
+            if (existingUser.isTwoFactorEnabled) { 
+              const twoFactorConfirmation = 
+              await getTwoFactorConfirmationByUserId(existingUser.id);
+              
+            if (!twoFactorConfirmation) 
+                return false;
+              
+                //Delete any existing two factor confirmation for the user
+                await db.twoFactorConfirmation.delete({
+                  where: { id: twoFactorConfirmation.id }
+                }); 
+                
+                //Create a new two factor confirmation for the user
+                await db.twoFactorConfirmation.create({
+                  data: {
+                    userId: existingUser.id,
+                    token: crypto.randomUUID(),
+                    expires: new Date(Date.now() + 15 * 60 * 1000)
+                  }
+                });
             }
-            //TODO : add 2FA check here
-          return true;
+            return true;
         },
 
         async session({token, session}){

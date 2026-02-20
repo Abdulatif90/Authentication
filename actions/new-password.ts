@@ -27,6 +27,7 @@ export const newPassword = async (
     const { password } = validatedFields.data;
 
     const existingToken = await getPasswordResetTokenByToken(token);
+    
     if (!existingToken) {
         return {
             error: "Invalid or expired token"
@@ -46,6 +47,8 @@ export const newPassword = async (
             error: "Email not found"
         };
     }
+   
+    
     const hasPassword = await bcrypt.hash(password, 10);
     await db.user.update({
         where: {
