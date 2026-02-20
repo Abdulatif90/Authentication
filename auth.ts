@@ -29,6 +29,7 @@ import { UserRole } from "@prisma/client";
       },
       callbacks:{
         async signIn({ user, account }) {
+          console.log("SignIn callback called with user:", user, "and account:", account);
           // allow OAuth without email verification
             if (account?.provider !== "credentials") 
             return true;

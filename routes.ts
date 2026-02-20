@@ -7,7 +7,8 @@ allowing users to access them freely.
 */
 
 export const PublicRoutes =
-["/", "/about", "/contact"];
+["/", "/about", "/contact", "/auth/new-verification"];
+
 
 /*
 An array of routes that are used for authentication purposes, 
