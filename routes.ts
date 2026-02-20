@@ -7,7 +7,10 @@ allowing users to access them freely.
 */
 
 export const PublicRoutes =
-["/", "/about", "/contact", "/auth/new-verification"];
+[
+    "/", 
+    "/auth/new-verification", 
+    "/auth/reset"];
 
 
 /*

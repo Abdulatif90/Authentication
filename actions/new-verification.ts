@@ -2,8 +2,6 @@
 
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
-import { genereateVerificationToken } from "@/lib/tokens";
-import { sendVerificationEmail } from "@/lib/mail";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 
 export const newVerification = async (token: string) => {
