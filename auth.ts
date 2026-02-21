@@ -14,7 +14,8 @@ import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation
     = NextAuth({ 
       pages: {
         signIn: "/auth/login",
-        error: "/auth/error"
+        error: "/auth/error",
+        signOut: "/auth/login",
       },
       events: { 
         async linkAccount({ user }) {
@@ -67,6 +68,11 @@ import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation
           if (token.role && session.user) {
             session.user.role = token.role as UserRole;
           }
+
+          if (session.user) {
+            session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+          }
+
           return session;
         },
         async jwt ({token}){
@@ -78,6 +84,7 @@ import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation
           if (!existingUser) return token;
 
           token.role = existingUser.role;
+          token.isTwoFactorEnable = existingUser.isTwoFactorEnabled
 
           return token;
          } 
