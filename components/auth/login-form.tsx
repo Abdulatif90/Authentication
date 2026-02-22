@@ -27,6 +27,7 @@ import React, { useState, useTransition } from "react";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl")
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
     ? "Email already associated with another account"
     : "";
@@ -51,9 +52,9 @@ export const LoginForm = () => {
         setSuccess("");
 
         startTransition(() => {
-            login(values)
+            login(values, callbackUrl)
             .then((data) => {
-                console.log("Login response:", data);
+                console.log(data)
                 if (data?.error) {
                     form.reset();
                     setError(data.error);

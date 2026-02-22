@@ -25,15 +25,17 @@ const AdminPage = () => {
     }
 
     const onApiRouteClick = () => {
-        fetch("/api/admin")
-        .then((response) => {
-            if (response.ok) {
-                toast.success ("Allowed API Route!")
-            } else {
-                toast.error("Forbitted API Route!")
+        
+        admin()
+        .then((data) => {
+            if(data.error){
+                toast.error("For only ADMINS");
+            }
+
+            if(data.success){
+                toast.success("Allowed!");
             }
         })
-
     }
 
     return (

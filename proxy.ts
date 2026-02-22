@@ -23,8 +23,21 @@ if (isAuthRoute) {
   }
   return null; // Auth routes are accessible to unauthenticated users
 }
-});
 
+
+if (!isLoggedIn && !isPublicRoute) {
+  let callbackUrl = nextUrl.pathname;
+  if (nextUrl.search){
+    callbackUrl += nextUrl.search
+  }
+  const encodedCallbackUrl =encodeURIComponent(callbackUrl)
+
+  return Response.redirect(new URL(
+    `/auth/login?callbackUrl=${encodedCallbackUrl}`, 
+    nextUrl))
+}
+  return null;
+});
 
 // Optionally, don't invoke Proxy on some paths
 export const config = {

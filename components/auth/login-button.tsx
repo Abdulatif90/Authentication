@@ -1,5 +1,14 @@
 "use client";
+
 import { useRouter } from "next/navigation";
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { LoginForm } from "@/components/auth/login-form";
 
 
 interface LoginButtonProps {
@@ -19,9 +28,20 @@ export const LoginButton = ({
     };
     if ( mode === "modal") {
         return (
-            <span>
-                TODO: implement modal login
-            </span>
+            <Dialog>
+                <DialogTrigger asChild={asChild}>
+                    {children}
+                </DialogTrigger>
+                <DialogContent className="p-o w-auto bg-transparent border-none">
+                    <VisuallyHidden> 
+                        <DialogTitle className="sr-only">
+                            Login to your account
+                        </DialogTitle>
+                    </VisuallyHidden>
+                    <LoginForm/>
+                </DialogContent>
+            </Dialog>
+
         );
     }
 

@@ -15,16 +15,17 @@ import { LogoutButton } from "@/components/auth/logout-button";
 
 export const UserButton = () => {
     const user = useCurrentUser();
+
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger >
                 <Avatar>
                     <AvatarImage src={user?.image ?? ""} alt="User Avatar" />
                     <AvatarFallback className="bg-sky-500">
                         <FaUser className="text-white" />
                     </AvatarFallback>
                 </Avatar>
-            </DropdownMenuTrigger>
+            </DropdownMenuTrigger >
             <DropdownMenuContent className="w-40" align="end">
                 <LogoutButton>  
                     <DropdownMenuItem className="cursor-pointer">

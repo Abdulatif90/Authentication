@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { LoginButton } from "@/components/auth/login-button";
-import { cookies } from 'next/headers'
 
 
 const font = Poppins({
@@ -25,7 +24,7 @@ export default function Home() {
           Welcome to the Auth application! Please sign in to continue.
         </p>
         <div>
-          <LoginButton>
+          <LoginButton mode="modal" asChild>
           <Button variant="secondary" className="text-lg">
              Sign in
           </Button>
