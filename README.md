@@ -7,8 +7,7 @@ This project is a  full-stack authentication system  built with  Next.js 16 ,  N
 
   🌐 Live Demo
 
-Check out the live application: [https://authentication-phi-plum.vercel.app/](https://authentication-phi-plum.vercel.app/)
-
+Check out the live application: [https://authentication-sh.vercel.app/]
   📋 Table of Contents
 
 - [Technologies]( technologies)
@@ -58,7 +57,7 @@ Check out the live application: [https://authentication-phi-plum.vercel.app/](ht
 - ✅  Server Actions  for secure operations
 - ✅  Prisma  with PostgreSQL
 - ✅  Responsive UI  (shadcn/ui)
-- ✅  Live Demo  - [https://authentication-phi-plum.vercel.app/](https://authentication-phi-plum.vercel.app/)
+- ✅  Live Demo  - [https://authentication-sh.vercel.app/)
 
   📦 Installation
 
@@ -182,7 +181,7 @@ After registration, a verification email is sent to the user's email address:
 
 ```
 Subject: Verify your email
-Body: Click the link to verify: https://authentication-phi-plum.vercel.app/auth/new-verification?token=abc123...
+Body: Click the link to verify: https://authentication-sh.vercel.app/auth/new-verification?token=abc123...
 ```
 
 The token is  valid for 1 hour  and can only be used once.
@@ -352,7 +351,7 @@ authentication/
 
   🌍 Live Demo
 
-Experience the application live: [https://authentication-phi-plum.vercel.app/](https://authentication-phi-plum.vercel.app/)
+Experience the application live: https://authentication-sh.vercel.app
 
   📄 License
 
